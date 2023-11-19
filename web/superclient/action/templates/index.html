@@ -1,0 +1,147 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <meta property="og:title" content="Dashboard">
+  <meta property="og:type" content="website">
+</head>
+
+<body>
+    <style type="text/css">
+        body {
+            background-color: #005bff47;
+            margin: 0;
+            /* font-family: monospace; */
+            color: #181818;
+        }
+        #form-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #links {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+        #shortcuts {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            flex-flow: column;
+            align-items: end;
+        }
+        .shortcut {
+            color: #181818;
+            margin-top: 15px;
+        }
+        .link {
+            color: #181818;
+            margin-right: 15px;
+        }
+        form {
+            width: 50vw;
+            min-width: 500px;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+            /* box-sizing: content-box;
+            font-family: monospace;
+            color: #181818;
+            font-size: 32px;
+            font-size: 5vw;
+            background-color: blueviolet;
+            padding: 16px;
+            font-weight: bolder;
+            text-align: center;
+            border: 5px solid #181818; */
+        }
+        #main-form-items {
+            width: 40%;
+        }
+        .main-form-item {
+            height: 32px;
+            width: 100%;
+            margin: 6px 0;
+        }
+        #apply-setting-submit-button {
+            background-color: rgb(84, 188, 217);
+            margin: 30px 0;
+            /* padding: 16px; */
+            font-weight: bolder;
+            text-align: center;
+            border: 2px solid #181818;    
+        }
+        #submit-button {
+            background-color: blueviolet;
+            margin: 30px 0;
+            /* padding: 16px; */
+            font-weight: bolder;
+            text-align: center;
+            border: 2px solid #181818;
+        }
+        .main-form-item-spliter {
+            display: block;
+            margin: 15px;
+        }
+        a:link { text-decoration: none; }
+        a:visited { text-decoration: none; }
+        a:hover { text-decoration: none; }
+        a:active { text-decoration: none; }
+    </style>
+    
+    <div id="form-container">
+        
+        <div id="links">
+            <a class="link" href="/">🏠 Home</a>
+            <a class="link" href="/settings">⚙️ Settings</a>
+            <a class="link" href="/update">⬆ Update</a>
+            <a class="link" href="/reboot">🔃 Reboot</a>
+        </div>
+
+        <div id="shortcuts">
+            <div>Quick Add VPN</div>
+            <a class="shortcut" href="/settingsvpn/openconnectconfig/add/">Open Connect ➕</a>
+            <a class="shortcut" href="/settingsvpn/v2rayconfig/add/">v2ray (manual) ➕</a>
+            <a class="shortcut" href="/settingsvpn/v2rayurlconfig/add/">v2ray (config url) ➕</a>
+        </div>
+
+        <form id="main-form" action="/" method="post">
+            {% csrf_token %}
+            <div id="main-form-items">
+                {% if isOn %}
+                <p for="submit-button">Selected VPN: {{selectedVpn}}</p>
+                <p for="submit-button">Active VPN: {{activeVpn_on}}</p>
+                {% else %}
+                <label for="select-vpn">Select Vpn Connection</label>
+                <select class="main-form-item" id="select-vpn" name="select_vpn" id="vpns">
+                    {% for vpn in vpns %}
+                    <option value="{{vpn.id}}">{{vpn.title}}</option>
+                    {% endfor %}
+                </select>
+                <p for="submit-button">Active VPN: {{activeVpn_off}}</p>
+                {% endif %}
+                <input type="hidden" name="vpn" value="true">
+                <input class="main-form-item" id="submit-button" type="submit" value="{{ submitText }}">
+            </div>
+        </form>
+        <form id="apply-setting-form" action="/" method="post">
+            {% csrf_token %}
+            <div id="main-form-items">
+                <input type="hidden" name="apply" value="true">
+                <input class="main-form-item" id="apply-setting-submit-button" type="submit" value="Apply Setting">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<style>
+    #form-container {
+        
+    }
+    #main-form {
+        display: flex;
+        flex-flow: column;
+    }
+</style>
+
+<a href="/">🏠 Home</a>
+
+{% if updating == 0 %}
+<div id="form-container">
+
+    <form id="main-form" action="/update" method="post">
+        {% csrf_token %}
+
+        <h3>Current App Version:  {{current_app_version}}</h3>
+        <h3>Available App Version:  {{available_app_version}}</h3>
+        <input id="submit-button" type="submit" {% if not can_update %} disabled {% endif %} value="Update And Reboot">
+    </form>
+
+</div>
+{% elif updating == 1 %}
+<h3>System is updating to version {{available_app_version}}, Please wait for 2 minutes.</h3>
+{% elif updating == -1 %}
+<h3>System is updating failed, Please contact to admin.</h3>
+{% endif %}

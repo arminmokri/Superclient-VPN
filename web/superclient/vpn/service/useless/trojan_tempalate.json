@@ -1,0 +1,73 @@
+{
+  "_comment": "trojan://segment01@segment02:10000?sni=segment03#segment_name",
+  "log": {
+    "loglevel": ""
+  },
+  "dns": {
+    "servers": ["8.8.8.8"]
+  },
+  "routing": {
+    "domainStrategy": "UseIp",
+    "rules": [
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "socks",
+      "sniffing": {
+        "enabled": false
+      },
+      "listen": "127.0.0.1",
+      "port": 1080,
+      "protocol": "socks",
+      "settings": {
+        "udp": true,
+        "auth": "noauth",
+        "userLevel": 8
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "trojan",
+      "settings": {
+        "servers": [
+          {
+            "password": "segment01",
+            "port": 10000,
+            "method": "auto",
+            "ota": false,
+            "level": 8,
+            "address": "segment03"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "segment02",
+          "allowInsecure": true,
+          "fingerprint": "randomized"
+        }
+      },
+      "mux": {
+        "concurrency": 8,
+        "enabled": false
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIP"
+      }
+    },
+    {
+      "tag": "blackhole",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ]
+}

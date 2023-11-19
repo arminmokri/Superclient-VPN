@@ -1,0 +1,6 @@
+asgiref==3.5.2
+django==4.1.1
+psutil==5.9.2
+sqlparse==0.4.3
+nmcli==1.1.1
+requests==2.28.2

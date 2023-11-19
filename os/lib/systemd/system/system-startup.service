@@ -1,0 +1,11 @@
+[Unit]
+Description=System-Startup
+After=system-mount system-swap
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/bin/bash -c "/etc/system/startup.sh &>/tmp/system-startup.log"
+
+[Install]
+WantedBy=multi-user.target

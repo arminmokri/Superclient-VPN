@@ -1,0 +1,8 @@
+/tmp/*.log {
+    su root root
+    size 1M
+    copytruncate
+    missingok
+    rotate 1
+    nocompress
+}
