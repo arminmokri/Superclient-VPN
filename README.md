@@ -37,6 +37,6 @@
 9. Connect to the shell of your embedded board again
 10. run `cd ~ `
 11. run `rm -rf Superclient-VPN`
-12. run `firmware --action "init_release" --repo-username "arminmokri" --repo-username-path "/disk/username" --repo-name "Superclient-VPN" --repo-name-path "/disk/name" --firmware-dir-path "/disk/firmware" --tmp-dir-path "/tmp"`
+12. run `sudo firmware --action "init_release" --repo-username "arminmokri" --repo-username-path "/disk/username" --repo-name "Superclient-VPN" --repo-name-path "/disk/name" --firmware-dir-path "/disk/firmware" --tmp-dir-path "/tmp"`
 13. `sudo reboot`
 14. Find your embedded board IP and go to web UI http://IP
