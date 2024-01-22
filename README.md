@@ -1,4 +1,5 @@
 # Superclient-VPN
+### Please support my repo with your star.
 **Superclient-VPN** is a router with multi vpn client protocols to keep your VPN always *on*, for all Linux embedded boards and written in Django.
 
 ## Features
